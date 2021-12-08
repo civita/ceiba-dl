@@ -219,7 +219,7 @@ class Get:
             except (pycurl.error, Error) as err:
                 self.logger.error(err)
         if not node_ready:
-            return False
+            return True
 
         if self.vfs.is_internal_link(node):
             return self.download_link(path, node, retry, dcb, ecb)
@@ -232,7 +232,7 @@ class Get:
                 child_path = pathlib.PurePosixPath(path) / child_name
                 child_path = child_path.as_posix()
                 if not self.download_file(child_path, retry, dcb, ecb):
-                    return False
+                    return True
             return True
         else:
             assert False, '無法辨識的檔案格式'
